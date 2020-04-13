@@ -1,0 +1,128 @@
+::placeholder {
+  color: #fff;
+  opacity: 0.3;
+}
+
+:-ms-input-placeholder {
+  color: #fff;
+  opacity: 0.3;
+}
+
+::-ms-input-placeholder {
+  color: #fff;
+  opacity: 0.3;
+}
+
+body {
+  margin: 0;
+  background: #598545 !important;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+#players {
+  display: flex;
+  // justify-content: center;
+  div {
+    width: 50%;
+    text-align: center;
+    margin: 60px auto;
+    color: #fff;
+    h2 {
+      font-size: 4rem;
+      position: relative;
+      margin-bottom: 30px;
+    }
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 3px;
+      width: 140px;
+      background: #fff;
+      border-radius: 3em;
+      opacity: 0.2;
+    }
+    h3 {
+      font-size: 3.75rem;
+    }
+  }
+}
+
+#action {
+  text-align: center;
+  margin: 40px auto;
+  button {
+    width: 191px;
+    height: 57px;
+    border-radius: 10px;
+    margin: 0 20px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: #598545;
+  }
+}
+
+#pointsLeft {
+  text-align: center;
+  color: #fff;
+  margin: 80px auto;
+  opacity: 0.3;
+}
+
+#balls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -40px;
+  flex-wrap: wrap;
+  div {
+    margin: 0 4px;
+    svg {
+      width: 60px;
+    }
+    #red {
+      width: 90px;
+    }
+  }
+}
+
+#start {
+  text-align: center;
+  margin: 100px auto;
+  svg {
+    width: 160px;
+  }
+  form {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+      width: 380px;
+      height: 68px;
+      border-radius: 10px;
+      outline: none;
+      background: none;
+      border: 3px solid #ffffff;
+      color: #fff;
+      margin: 20px auto;
+      font-size: 24px;
+      padding: 0 30px;
+      transition: all 0.3s ease-in-out;
+    }
+    input:focus {
+      border-color: #1c4d55;
+    }
+    #submit {
+      border: none;
+      font-size: 35px;
+    }
+  }
+}
