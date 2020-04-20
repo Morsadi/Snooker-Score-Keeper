@@ -12,6 +12,9 @@
   color: #fff;
   opacity: 0.3;
 }
+button {
+  outline: none !important;
+}
 
 body {
   margin: 0;
@@ -28,12 +31,25 @@ h1 {
   div {
     width: 50%;
     text-align: center;
-    margin: 60px auto;
+    margin: 0px auto;
     color: #fff;
+    cursor: pointer;
+    height: 230px;
+    span {
+      display: block;
+      transition: all 0.5s ease-in-out;
+      span {
+        width: 40%;
+        text-align: right;
+        transform: translateY(-55px);
+      }
+    }
     h2 {
       font-size: 4rem;
       position: relative;
       margin-bottom: 30px;
+      padding-top: 30px;
+      font-weight: 200;
     }
     h2:after {
       content: '';
@@ -50,6 +66,9 @@ h1 {
     h3 {
       font-size: 3.75rem;
     }
+  }
+  div:hover {
+    background-color: rgba(225, 225, 225, 0.146);
   }
 }
 
@@ -84,6 +103,7 @@ h1 {
   flex-wrap: wrap;
   div {
     margin: 0 4px;
+    transition: all 0.5s ease-in-out;
     svg {
       width: 60px;
     }
@@ -124,5 +144,116 @@ h1 {
       border: none;
       font-size: 35px;
     }
+  }
+}
+
+#foul {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(80, 6, 6, 0.86);
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 40px;
+    width: 40px;
+  }
+  h2 {
+    margin-top: 130px;
+    font-size: 50px;
+  }
+  div {
+    margin-top: 90px;
+    button {
+      background: none;
+      border: 1px solid #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px;
+      color: #fff;
+      font-size: 30px;
+      outline: none;
+    }
+  }
+  #lostPoints {
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+
+    input {
+      -webkit-appearance: none;
+      margin: 0 10px;
+      min-height: 50px;
+      min-width: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      outline: none;
+      position: relative;
+      z-index: 100;
+      cursor: pointer;
+    }
+    label {
+      display: inline-block;
+      position: relative;
+      left: -43px;
+      top: 7px;
+      font-size: 24px;
+    }
+    input:checked {
+      background-color: #fff;
+      z-index: 0;
+    }
+    input:checked + label {
+      color: black;
+    }
+  }
+  #options {
+    width: 20%;
+    text-align: left;
+    margin: 60px auto;
+    input {
+      -webkit-appearance: none;
+      margin: 0 10px;
+      height: 20px;
+      width: 20px;
+      background: #fff;
+      border: 2px solid #555;
+      border-radius: 5px;
+      outline: none;
+      position: relative;
+    }
+    input:checked:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #202020;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    label {
+      transform: translateY(-2.4px);
+      font-size: 20px;
+    }
+  }
+  button {
+    width: 191px;
+    height: 57px;
+    border-radius: 10px;
+    margin: 0 20px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: #51180f;
   }
 }

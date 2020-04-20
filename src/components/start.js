@@ -3,8 +3,7 @@ import { balls } from './svgs';
 
 export default function Start(props) {
   const { startGame, eventHandler, players } = props;
-  console.log(eventHandler);
-  console.log(players);
+
   return (
     <div id='start'>
       {balls.logo}
