@@ -307,3 +307,55 @@ h1 {
 #endGameBtn:hover {
   opacity: 1;
 }
+
+@media only screen and (max-width: 600px) {
+  #start {
+    margin: 70px auto;
+    form input {
+      width: 300px;
+    }
+  }
+  #players {
+    div {
+      height: 170px;
+      h2 {
+        font-size: 2rem;
+      }
+      h3 {
+        font-size: 2.75rem;
+      }
+    }
+  }
+  #action button {
+    width: 100px;
+    height: 44px;
+    font-size: 18px;
+  }
+  #pointsLeft {
+    margin: 30px auto;
+  }
+  #balls div svg {
+    width: 45px;
+  }
+  #balls div #red {
+    height: auto;
+  }
+  #endGameBtn {
+    margin: 20px;
+  }
+  #foul {
+    z-index: 1000;
+    #options {
+      width: fit-content;
+    }
+    button {
+      width: 100px;
+      height: 44px;
+      font-size: 18px;
+    }
+  }
+
+  .confirmEndGame {
+    width: 100%;
+  }
+}
