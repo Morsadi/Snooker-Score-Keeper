@@ -86,6 +86,7 @@ h1 {
     font-weight: bold;
     font-size: 25px;
     color: #598545;
+    background-color: #fff;
   }
 }
 
@@ -176,6 +177,7 @@ h1 {
     right: 20px;
     height: 40px;
     width: 40px;
+    background-color: #fff;
   }
   h2 {
     margin-top: 130px;
@@ -193,6 +195,9 @@ h1 {
       color: #fff;
       font-size: 30px;
       outline: none;
+    }
+    button {
+      background-color: #fff;
     }
   }
   #lostPoints {
@@ -345,6 +350,7 @@ h1 {
   }
   #foul {
     z-index: 1000;
+    height: calc(100% + 69px);
     #options {
       width: fit-content;
     }
