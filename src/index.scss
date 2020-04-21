@@ -20,6 +20,7 @@ body {
   margin: 0;
   background: #598545 !important;
   text-align: center !important;
+  outline: none !important;
 }
 h1 {
   margin: 0;
@@ -32,10 +33,10 @@ h1 {
   div {
     width: 50%;
     text-align: center;
-    margin: 0px auto;
+    margin: 20px auto;
     color: #fff;
     cursor: pointer;
-    height: 230px;
+    height: fit-content;
     span {
       display: block;
       transition: all 0.5s ease-in-out;
@@ -46,7 +47,7 @@ h1 {
       }
     }
     h2 {
-      font-size: 4rem;
+      font-size: 5vh;
       position: relative;
       margin-bottom: 30px;
       padding-top: 30px;
@@ -65,7 +66,7 @@ h1 {
       opacity: 0.2;
     }
     h3 {
-      font-size: 3.75rem;
+      font-size: 4vh;
     }
   }
   div:hover {
@@ -177,7 +178,10 @@ h1 {
     right: 20px;
     height: 40px;
     width: 40px;
-    background-color: #fff;
+    color: #fff;
+    background: none;
+    border: none;
+    outline: none;
   }
   h2 {
     margin-top: 130px;
@@ -195,9 +199,6 @@ h1 {
       color: #fff;
       font-size: 30px;
       outline: none;
-    }
-    button {
-      background-color: #fff;
     }
   }
   #lostPoints {
@@ -274,6 +275,7 @@ h1 {
     font-weight: bold;
     font-size: 25px;
     color: #51180f;
+    background: #fff;
   }
 }
 .confirmEndGame {
@@ -323,11 +325,12 @@ h1 {
   #players {
     div {
       height: 170px;
+      margin: 0px auto;
       h2 {
-        font-size: 2rem;
+        // font-size: 2rem;
       }
       h3 {
-        font-size: 2.75rem;
+        // font-size: 2.75rem;
       }
     }
   }
@@ -335,6 +338,7 @@ h1 {
     width: 100px;
     height: 44px;
     font-size: 18px;
+    border: none;
   }
   #pointsLeft {
     margin: 30px auto;
@@ -350,7 +354,7 @@ h1 {
   }
   #foul {
     z-index: 1000;
-    height: calc(100% + 69px);
+    height: 100%;
     #options {
       width: fit-content;
     }
@@ -363,5 +367,13 @@ h1 {
 
   .confirmEndGame {
     width: 100%;
+  }
+  #foul {
+    #foul h2 {
+      margin-top: 80px;
+    }
+    #options {
+      margin: 40px auto;
+    }
   }
 }

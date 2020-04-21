@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Balls from './balls';
 import Foul from './foul';
-import Start from './start';
 
 export default function Home(props) {
   const { first, second } = props.players;
