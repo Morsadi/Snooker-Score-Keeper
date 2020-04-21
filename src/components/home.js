@@ -78,42 +78,45 @@ export default function Home(props) {
       </div>
       <div id='balls'>
         <Balls
-          opacity={ballStatus === 'colorOn' ? 1 : 0.6}
+          // if the ballstatus was colorOn, increase the opacity of colored balls
+          // if the balsatus was redOn, increase the opacity of the red ball
+          // if the ballstatus matches any of the colored balls, lightup that ball
+          opacity={ballStatus === 'colorOn' || ballStatus === 7 ? 1 : 0.6}
           cursor={ballStatus === 'colorOn' ? 'pointer' : 'auto'}
           addScore={addScore}
           color='black'
           points={7}
         />
         <Balls
-          opacity={ballStatus === 'colorOn' ? 1 : 0.6}
+          opacity={ballStatus === 'colorOn' || ballStatus === 6 ? 1 : 0.6}
           cursor={ballStatus === 'colorOn' ? 'pointer' : 'auto'}
           addScore={addScore}
           color='pink'
           points={6}
         />
         <Balls
-          opacity={ballStatus === 'colorOn' ? 1 : 0.6}
+          opacity={ballStatus === 'colorOn' || ballStatus === 5 ? 1 : 0.6}
           cursor={ballStatus === 'colorOn' ? 'pointer' : 'auto'}
           addScore={addScore}
           color='blue'
           points={5}
         />
         <Balls
-          opacity={ballStatus === 'colorOn' ? 1 : 0.6}
+          opacity={ballStatus === 'colorOn' || ballStatus === 4 ? 1 : 0.6}
           cursor={ballStatus === 'colorOn' ? 'pointer' : 'auto'}
           addScore={addScore}
           color='green'
           points={4}
         />
         <Balls
-          opacity={ballStatus === 'colorOn' ? 1 : 0.6}
+          opacity={ballStatus === 'colorOn' || ballStatus === 3 ? 1 : 0.6}
           cursor={ballStatus === 'colorOn' ? 'pointer' : 'auto'}
           addScore={addScore}
           color='brown'
           points={3}
         />
         <Balls
-          opacity={ballStatus === 'colorOn' ? 1 : 0.6}
+          opacity={ballStatus === 'colorOn' || ballStatus === 2 ? 1 : 0.6}
           cursor={ballStatus === 'colorOn' ? 'pointer' : 'auto'}
           addScore={addScore}
           color='yellow'

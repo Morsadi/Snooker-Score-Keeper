@@ -8,7 +8,7 @@ export default class App extends Component {
 
     this.state = {
       totalScore: 147,
-      redCount: 15,
+      redCount: 3,
       isHomeOn: false,
       ballStatus: 'redOn',
       formValidation: false,
@@ -102,7 +102,6 @@ export default class App extends Component {
 
     this.setState({
       totalScore: oldTotalScore - Number(selectedPoint),
-      ballStatus: 'redOn',
       players: {
         ...players,
         [activePlayer]: {
@@ -155,7 +154,7 @@ export default class App extends Component {
   };
 
   activatePlayer = (e) => {
-    const { redCount, activePlayer } = this.state;
+    const { ballStatus, activePlayer } = this.state;
 
     //if the function was triggered remotely
     const player = !e
@@ -165,7 +164,7 @@ export default class App extends Component {
       : e.currentTarget.getAttribute('name');
 
     //make sure the End-Game mode is on yet, reset ball status to redON
-    if (redCount === 'colorOn' || redCount === 'redOn') {
+    if (ballStatus === 'colorOn' || ballStatus === 'redOn') {
       this.setState({
         activePlayer: player,
         ballStatus: 'redOn',
