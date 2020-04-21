@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Balls from './balls';
 import Foul from './foul';
+import GameOver from './gameOver';
 
 export default function Home(props) {
   const { first, second } = props.players;
@@ -20,6 +21,8 @@ export default function Home(props) {
     newGame,
     toggleEndGame,
     endGame,
+    players,
+    gameOver,
   } = props;
 
   return (
@@ -162,6 +165,7 @@ export default function Home(props) {
           fill='white'
         />
       </svg>
+      <GameOver players={players} gameOver={gameOver} newGame={newGame} />
     </div>
   );
 }

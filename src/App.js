@@ -8,7 +8,7 @@ export default class App extends Component {
 
     this.state = {
       totalScore: 147,
-      redCount: 3,
+      redCount: 15,
       isHomeOn: false,
       ballStatus: 'redOn',
       formValidation: false,
@@ -34,6 +34,7 @@ export default class App extends Component {
         },
       },
       endGame: false,
+      gameOver: false,
     };
   }
 
@@ -207,7 +208,9 @@ export default class App extends Component {
 
       //once ballstatus reaches 8; meaning, all balls are pocketted, then finish the game.
     } else if (ballStatus === 8) {
-      console.log('game finished');
+      this.setState({
+        gameOver: true,
+      });
     }
   };
 
@@ -288,6 +291,7 @@ export default class App extends Component {
         },
       },
       endGame: false,
+      gameOver: false,
     });
   };
 
@@ -301,6 +305,7 @@ export default class App extends Component {
       ballStatus,
       redCount,
       endGame,
+      gameOver,
     } = this.state;
     return (
       <div>
@@ -321,6 +326,7 @@ export default class App extends Component {
             newGame={this.newGame}
             toggleEndGame={this.toggleEndGame}
             endGame={endGame}
+            gameOver={gameOver}
           />
         ) : (
           <Start
