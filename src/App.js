@@ -1,8 +1,6 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import Home from './components/home';
 import Start from './components/start';
-import { balls } from './components/svgs';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class App extends Component {
   constructor(props) {
@@ -10,7 +8,7 @@ export default class App extends Component {
 
     this.state = {
       totalScore: 147,
-      redCount: 3,
+      redCount: 15,
       isHomeOn: false,
       ballStatus: 'redOn',
       formValidation: false,
@@ -19,26 +17,27 @@ export default class App extends Component {
         isFoul: false,
         points: '4',
         removeRed: false,
-        freeBall: false
+        freeBall: false,
       },
       players: {
         first: {
           isValid: false,
           name: '',
           game: [0],
-          score: 0
+          score: 0,
         },
         second: {
           isValid: false,
           name: '',
           game: [0],
-          score: 0
-        }
-      }
+          score: 0,
+        },
+      },
+      endGame: false,
     };
   }
 
-  eventHandler = e => {
+  eventHandler = (e) => {
     const { players } = this.state;
     const player = e.currentTarget.name;
     const value = e.currentTarget.value;
@@ -49,18 +48,18 @@ export default class App extends Component {
         [player]: {
           ...players[player],
           isValid: validity,
-          name: value
-        }
-      }
+          name: value,
+        },
+      },
     });
   };
 
-  startGame = e => {
+  startGame = (e) => {
     // e.preventDefault();
     const { players } = this.state;
     if (players.first.isValid && players.second.isValid) {
       this.setState({
-        isHomeOn: true
+        isHomeOn: true,
       });
     }
   };
@@ -69,8 +68,8 @@ export default class App extends Component {
     this.setState({
       foul: {
         ...this.state.foul,
-        isFoul: true
-      }
+        isFoul: true,
+      },
     });
   };
 
@@ -78,8 +77,8 @@ export default class App extends Component {
     this.setState({
       foul: {
         ...this.state.foul,
-        isFoul: false
-      }
+        isFoul: false,
+      },
     });
   };
 
@@ -109,15 +108,19 @@ export default class App extends Component {
         [activePlayer]: {
           ...players[activePlayer],
           game: newGame,
-          score
-        }
+          score,
+        },
       },
       foul: {
         ...this.state.foul,
-        isFoul: false
-      }
+        isFoul: false,
+      },
     });
     this.removeRed();
+
+    if (foul.freeBall) {
+      this.activatePlayer();
+    }
   };
 
   removeRed = () => {
@@ -129,12 +132,12 @@ export default class App extends Component {
         foul: {
           ...foul,
           removeRed: false,
-          isFoul: false
-        }
+          isFoul: false,
+        },
       });
     }
   };
-  handleChecks = e => {
+  handleChecks = (e) => {
     const { foul } = this.state;
     const label = e.target.getAttribute('name');
     // if the clicked input is a checkbox get the checked value, if not just get value
@@ -146,84 +149,148 @@ export default class App extends Component {
     this.setState({
       foul: {
         ...foul,
-        [label]: value
-      }
+        [label]: value,
+      },
     });
   };
 
-  activatePlayer = e => {
-    const player = e.currentTarget.getAttribute('name');
+  activatePlayer = (e) => {
+    const { redCount, activePlayer } = this.state;
 
-    this.setState({
-      activePlayer: player,
-      ballStatus: 'redOn'
-    });
+    //if the function was triggered remotely
+    const player = !e
+      ? activePlayer === 'first'
+        ? 'second'
+        : 'first'
+      : e.currentTarget.getAttribute('name');
+
+    //make sure the End-Game mode is on yet, reset ball status to redON
+    if (redCount === 'colorOn' || redCount === 'redOn') {
+      this.setState({
+        activePlayer: player,
+        ballStatus: 'redOn',
+      });
+
+      //else only change the player and keep the same ball progression
+    } else {
+      this.setState({
+        activePlayer: player,
+      });
+    }
   };
 
-  addScore = e => {
+  addScore = (e) => {
     const clickedPoints = Number(e.currentTarget.getAttribute('id'));
 
-    const {
-      activePlayer,
-      players,
-      totalScore,
-      ballStatus,
-      redCount
-    } = this.state;
-    let oldGame = players[activePlayer].game;
-
-    let oldTotalScore = totalScore;
+    const { ballStatus, redCount } = this.state;
 
     //if the color balls are on, only allow the red ball to be pressed and change ballStatus
 
     if (ballStatus === 'redOn' && clickedPoints === 1) {
-      let newGame = oldGame.concat(clickedPoints);
-      let score = newGame.reduce((a, b) => a + b);
-
-      this.setState({
-        totalScore: oldTotalScore - clickedPoints,
-        ballStatus: 'colorOn',
-        redCount: redCount - 1,
-        players: {
-          ...players,
-          [activePlayer]: {
-            ...players[activePlayer],
-            game: newGame,
-            score
-          }
-        }
-      });
+      this.updateScore(clickedPoints, 'colorOn', true);
 
       //if the red ball is on, only allow the color balls to be pressed and change ballStatus
     } else if (ballStatus === 'colorOn' && clickedPoints !== 1) {
+      this.updateScore(clickedPoints, 'redOn', false);
+
+      //if red balls are all out, change the ball status to the next ball (end mode)
+      if (redCount === 0) {
+        this.setState({
+          ballStatus: 2,
+        });
+      }
+
+      //Once End Game Mode is on, only allow the appropriate ball to be clicked/pocketed.
+      //Meaning: Yellow (2), Brown (3), Green (4), Blue (5), Pink (6), Black (7); all should be pocketed in order.
+      // when ballSatus is "2" meaning, Yellow(2), the clicked points should only be 2. Then increment by 1 for the next ball
+    } else if (ballStatus === clickedPoints) {
+      this.updateScore(clickedPoints, ballStatus + 1, false);
+
+      //once ballstatus reaches 8; meaning, all balls are pocketted, then finish the game.
+    } else if (ballStatus === 8) {
+      console.log('game finished');
+    }
+  };
+
+  //callback function
+  updateScore = (clickedPoints, ball, isRedBall) => {
+    const { activePlayer, players, totalScore, endGame } = this.state;
+
+    //deactivate clicking when end game confirmation is on
+    if (!endGame) {
+      //old game set of the active player
+      let oldGame = players[activePlayer].game;
+
+      //total count
+      let oldTotalScore = totalScore;
+
+      //push the clicked ball to the game set
       let newGame = oldGame.concat(clickedPoints);
+
+      //calculate the sum of that the game set to come up with score
       let score = newGame.reduce((a, b) => a + b);
 
       this.setState({
         totalScore: oldTotalScore - clickedPoints,
-        ballStatus: 'redOn',
+        ballStatus: ball,
         players: {
           ...players,
           [activePlayer]: {
             ...players[activePlayer],
             game: newGame,
-            score
-          }
-        }
+            score,
+          },
+        },
       });
-      console.log(clickedPoints);
-
-      if (redCount === 0) {
+      //if red ball clicked, subtracked it from the red balss count
+      if (isRedBall) {
+        const { redCount } = this.state;
         this.setState({
-          ballStatus: '2'
+          redCount: redCount - 1,
         });
       }
-    } else if (ballStatus === toString(clickedPoints)) {
-      console.log('game is finished');
     }
   };
 
-  updateScore = () => {};
+  toggleEndGame = () => {
+    const { endGame } = this.state;
+    this.setState({
+      endGame: !endGame,
+    });
+  };
+
+  //game reset
+  newGame = () => {
+    this.setState({
+      totalScore: 147,
+      redCount: 15,
+      isHomeOn: false,
+      ballStatus: 'redOn',
+      formValidation: false,
+      activePlayer: 'first',
+      foul: {
+        isFoul: false,
+        points: '4',
+        removeRed: false,
+        freeBall: false,
+      },
+      players: {
+        first: {
+          isValid: false,
+          name: '',
+          game: [0],
+          score: 0,
+        },
+        second: {
+          isValid: false,
+          name: '',
+          game: [0],
+          score: 0,
+        },
+      },
+      endGame: false,
+    });
+  };
 
   render() {
     const {
@@ -233,7 +300,8 @@ export default class App extends Component {
       activePlayer,
       totalScore,
       ballStatus,
-      redCount
+      redCount,
+      endGame,
     } = this.state;
     return (
       <div>
@@ -251,6 +319,9 @@ export default class App extends Component {
             ballStatus={ballStatus}
             handleChecks={this.handleChecks}
             redCount={redCount}
+            newGame={this.newGame}
+            toggleEndGame={this.toggleEndGame}
+            endGame={endGame}
           />
         ) : (
           <Start
