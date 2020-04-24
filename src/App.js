@@ -98,11 +98,7 @@ export default class App extends Component {
     //adding score
     let score = newGame.reduce((a, b) => a + b);
 
-    //old total score
-    let oldTotalScore = totalScore;
-
     this.setState({
-      totalScore: oldTotalScore - Number(selectedPoint),
       players: {
         ...players,
         [activePlayer]: {
