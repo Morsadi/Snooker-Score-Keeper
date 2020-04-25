@@ -8,7 +8,7 @@ export default class App extends Component {
 
     this.state = {
       totalScore: 147,
-      redCount: 3,
+      redCount: 15,
       isHomeOn: false,
       ballStatus: 'redOn',
       formValidation: false,
