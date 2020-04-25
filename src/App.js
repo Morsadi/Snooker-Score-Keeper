@@ -8,7 +8,7 @@ export default class App extends Component {
 
     this.state = {
       totalScore: 147,
-      redCount: 15,
+      redCount: 3,
       isHomeOn: false,
       ballStatus: 'redOn',
       formValidation: false,
@@ -112,6 +112,7 @@ export default class App extends Component {
         isFoul: false,
       },
     });
+
     this.removeRed();
 
     if (foul.freeBall) {
@@ -120,9 +121,21 @@ export default class App extends Component {
   };
 
   removeRed = () => {
-    const { redCount, foul } = this.state;
+    const { redCount, foul, ballStatus } = this.state;
 
-    if (this.state.foul.removeRed) {
+    ///// bug fix
+    // if the removered checkbox is checked and the red count is 1, remove the last red and switch the ball status to 2
+    if (redCount === 1) {
+      this.setState({
+        redCount: 0,
+        ballStatus: 2,
+        foul: {
+          ...foul,
+          removeRed: false,
+          isFoul: false,
+        },
+      });
+    } else if (this.state.foul.removeRed && redCount !== 0) {
       this.setState({
         redCount: redCount - 1,
         foul: {
@@ -151,7 +164,7 @@ export default class App extends Component {
   };
 
   activatePlayer = (e) => {
-    const { ballStatus, activePlayer } = this.state;
+    const { ballStatus, activePlayer, redCount } = this.state;
 
     //if the function was triggered remotely
     const player = !e
@@ -160,14 +173,19 @@ export default class App extends Component {
         : 'first'
       : e.currentTarget.getAttribute('name');
 
-    //make sure the End-Game mode is on yet, reset ball status to redON
-    if (ballStatus === 'colorOn' || ballStatus === 'redOn') {
+    //if the ball status is colorOn while the redCount is 0, switch to only colors
+    if (ballStatus === 'colorOn' && redCount === 0) {
+      this.setState({
+        activePlayer: player,
+        ballStatus: 2,
+      });
+
+      //else if there are more red balls, switch to the other player and set ball satus to redOn
+    } else if (ballStatus === 'colorOn' || ballStatus === 'redOn') {
       this.setState({
         activePlayer: player,
         ballStatus: 'redOn',
       });
-
-      //else only change the player and keep the same ball progression
     } else {
       this.setState({
         activePlayer: player,
@@ -212,7 +230,7 @@ export default class App extends Component {
 
   //callback function
   updateScore = (clickedPoints, ball, isRedBall) => {
-    const { activePlayer, players, totalScore, endGame } = this.state;
+    const { activePlayer, players, totalScore, endGame, redCount } = this.state;
 
     //deactivate clicking when end game confirmation is on
     if (!endGame) {

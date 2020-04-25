@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Foul(props) {
-  const { closeFoul, submitFoul, foul, handleChecks } = props;
+  const { closeFoul, submitFoul, foul, handleChecks, redCount } = props;
 
   return (
     <div id='foul'>

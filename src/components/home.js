@@ -139,6 +139,7 @@ export default function Home(props) {
           handleChecks={handleChecks}
           closeFoul={closeFoul}
           submitFoul={submitFoul}
+          redCount={redCount}
           foul={foul}
         />
       ) : null}
